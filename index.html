@@ -1224,9 +1224,31 @@ function closeNav() { burger.classList.remove('open'); nav.classList.remove('ope
 
 // LANGUAGE TOGGLE
 const langBtn = document.getElementById('langBtn');
-const langs = ['EN','PL'];
+const langs = ['EN', 'PL', 'UA'];
 let langIdx = 0;
-langBtn.addEventListener('click', () => { langIdx = (langIdx+1)%langs.length; langBtn.textContent = langs[langIdx]; });
+
+function applyLanguage(lang) {
+  const key = 'data-' + lang.toLowerCase();
+  document.querySelectorAll('[' + key + ']').forEach(el => {
+    el.textContent = el.getAttribute(key);
+  });
+  langBtn.textContent = lang;
+  // ← NEW: save the choice to browser memory
+  localStorage.setItem('matroz-lang', lang);
+}
+
+langBtn.addEventListener('click', () => {
+  langIdx = (langIdx + 1) % langs.length;
+  applyLanguage(langs[langIdx]);
+});
+
+// ← NEW: on page load, restore the saved language
+const saved = localStorage.getItem('matroz-lang');
+if (saved) {
+  langIdx = langs.indexOf(saved);
+  if (langIdx === -1) langIdx = 0;
+  applyLanguage(saved);
+}
 
 // SLIDER
 let current = 0;
