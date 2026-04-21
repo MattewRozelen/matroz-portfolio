@@ -1464,10 +1464,10 @@
        data-ua="ДАВАЙ"
        >LET'S</span>
       <span class="accent"
-       data-en="WORK"
+       data-en="CREATE"
        data-pl="RAZEM"
        data-ua="ТВОРИТИ"
-       >WORK</span>
+       >CREATE</span>
       <span
        data-en="TOGETHER"
        data-pl=""
@@ -1476,8 +1476,8 @@
     </h2>
     <p class="contact-sub"
      data-en="Have a project in mind? I'd love to hear about it. Drop me a message and let's make something great together."
-     data-pl="Masz pomysł na projekt? Opisz go — stwórzmy razem coś dopracowanego."
-     data-ua=""
+     data-pl="Masz pomysł na projekt? Opisz go — stwórzmy razem coś niesamowitego"
+     data-ua="Є ідея проєкту? Опиши її і ми створимо щось чудове разом."
      >Have a project in mind? I'd love to hear about it. Drop me a message and let's make something great together.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;position:relative">
       <a href="mailto:matthewrozelen@gmail.com" class="btn-primary" style="font-size:0.8rem">matthewrozelen@gmail.com</a>
@@ -1556,7 +1556,14 @@ function applyLanguage(lang) {
   langBtn.textContent = lang;
   // ← NEW: save the choice to browser memory
   localStorage.setItem('matroz-lang', lang);
-}
+ 
+ // ← ADD THIS: shrink hero title for longer languages
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    heroTitle.classList.remove('lang-pl', 'lang-ua');
+    if (lang === 'UA') heroTitle.classList.add('lang-ua');
+    if (lang === 'PL') heroTitle.classList.add('lang-pl');
+  }
 
 langBtn.addEventListener('click', () => {
   langIdx = (langIdx + 1) % langs.length;
